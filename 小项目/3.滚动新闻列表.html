@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            height: 210px;
+            width: 570px;
+            background-color: gray;
+            margin: 100px auto;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #box div ul li {
+            list-style: none;
+            line-height: 30px;
+            color: blue;
+            margin-left: 10px;
+        }
+
+        #moveBox {
+            position: relative;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="moveBox">
+            <div id="msg1">
+                <ul>
+                    <li>1、广东持续暴雨18天内发布上千次预警 网友拍下雷击广州塔全过程</li>
+                    <li>2、“操场埋尸案”遇害教师工伤被认定获补助金88万 家属放弃民事赔偿</li>
+                    <li>3、疯狂口罩跌下暴富“神坛”：有生产商从日赚15万到面临亏损百万</li>
+                    <li>4、热巴直播遭陌生男跪地求婚，汪涵及时出手制止，场面一片混乱</li>
+                    <li>5、泡吧开房拜金！连续12届国青违纪不断，名记：我们的足球环境有问题</li>
+                    <li>6、何超贤回应何超雄争财产，斥责对方贪心不足，没孩子分再多钱何用</li>
+                    <li>7、伦敦多名警察遇袭，约翰逊怒批：抗议已被“暴行”颠覆，将追究责任</li>
+                    <li>8、韦少德罗赞在加州参加抗议活动并发表演讲：我们需要团结起来</li>
+                </ul>
+            </div>
+            <div id="msg2">
+                <ul>
+                    <li>1、广东持续暴雨18天内发布上千次预警 网友拍下雷击广州塔全过程</li>
+                    <li>2、“操场埋尸案”遇害教师工伤被认定获补助金88万 家属放弃民事赔偿</li>
+                    <li>3、疯狂口罩跌下暴富“神坛”：有生产商从日赚15万到面临亏损百万</li>
+                    <li>4、热巴直播遭陌生男跪地求婚，汪涵及时出手制止，场面一片混乱</li>
+                    <li>5、泡吧开房拜金！连续12届国青违纪不断，名记：我们的足球环境有问题</li>
+                    <li>6、何超贤回应何超雄争财产，斥责对方贪心不足，没孩子分再多钱何用</li>
+                    <li>7、伦敦多名警察遇袭，约翰逊怒批：抗议已被“暴行”颠覆，将追究责任</li>
+                    <li>8、韦少德罗赞在加州参加抗议活动并发表演讲：我们需要团结起来</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./move.js"></script>
+<script src="./public.js"></script>
+<script>
+    class Main {
+        constructor() {
+            this.oMoveBox = $id("moveBox");
+            this.oBox = $id("box");
+            this.cur = 0;
+            this.scrollMsg();
+            var that = this;
+            this.oBox.onmouseenter = function () {
+                that.stop();
+            }
+            this.oBox.onmouseleave = function () {
+                that.scrollMsg();
+            }
+        }
+        scrollMsg() {
+            var that = this;
+            this.t = setInterval(() => {
+                var now = parseFloat(getStyle(that.oMoveBox, "top"));
+                that.cur = now - 1;
+                if (that.cur == "-240") {
+                    that.oMoveBox.style.top = "0";
+                } else {
+                    move(that.oMoveBox, { top: that.cur });
+                }
+            }, 16);
+        }
+        stop() {
+            clearInterval(this.t);
+        }
+    }
+    new Main();
+</script>
+
+</html>

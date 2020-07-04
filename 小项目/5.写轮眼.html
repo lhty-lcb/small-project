@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        #bigY1 {
+            width: 450px;
+            height: 450px;
+            border-radius: 100%;
+            border: 2px solid black;
+            margin: auto;
+            display: flex;
+            background-color: red;
+        }
+
+        #bigY2 {
+            width: 300px;
+            height: 300px;
+            border-radius: 100%;
+            border: 2px solid black;
+            margin: auto;
+            display: flex;
+        }
+
+        #bigY3 {
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+            border: 2px solid black;
+            margin: auto;
+            display: flex;
+        }
+
+        .smallY {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .smallY.center {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            position: static;
+            margin: auto;
+            background-color: black;
+        }
+
+        #num1 {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        #btn1 {
+            position: absolute;
+            top: 75px;
+            left: 50px;
+        }
+
+        #num2 {
+            position: absolute;
+            top: 100px;
+            left: 50px;
+        }
+
+        #btn2 {
+            position: absolute;
+            top: 125px;
+            left: 50px;
+        }
+
+        #num3 {
+            position: absolute;
+            top: 150px;
+            left: 50px;
+        }
+
+        #numAll {
+            position: absolute;
+            top: 225px;
+            left: 50px;
+        }
+
+        #btn3 {
+            position: absolute;
+            top: 175px;
+            left: 50px;
+        }
+
+        #btnAllT {
+            position: absolute;
+            top: 250px;
+            left: 50px;
+        }
+
+        #btnAllC {
+            position: absolute;
+            top: 280px;
+            left: 50px;
+        }
+
+        input {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="num1">
+    <input type="button" id="btn1" value="生成外部小球">
+    <input type="text" id="num2">
+    <input type="button" id="btn2" value="生成中部小球">
+    <input type="text" id="num3">
+    <input type="button" id="btn3" value="生成内部小球">
+    <input type="text" id="numAll">
+    <input type="button" id="btnAllT" value="同时生成小球">
+    <input type="button" id="btnAllC" value="差时生成小球">
+    <div id="box">
+        <div id="bigY1">
+            <div id="bigY2">
+                <div id="bigY3">
+                    <div class="smallY center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./public(my).js"></script>
+<script>
+    window.onload = function () {
+        var bigY1 = $id("bigY1");
+        var bigY2 = $id("bigY2");
+        var bigY3 = $id("bigY3");
+        var num1 = $id("num1");
+        var num2 = $id("num2");
+        var num3 = $id("num3");
+        var numAll = $id("numAll");
+        var btn = $id("btn");
+        var btn2 = $id("btn2");
+        var btn3 = $id("btn3");
+        var btnAllT = $id("btnAllT");
+        var btnAllC = $id("btnAllC");
+        var r1 = bigY1.offsetHeight / 2;
+        var r2 = bigY2.offsetHeight / 2;
+        var r3 = bigY3.offsetHeight / 2;
+        btn1.onclick = function () {
+            createBall(bigY1, num1, r1);
+        }
+        btn2.onclick = function () {
+            createBall(bigY2, num2, r2);
+        }
+        btn3.onclick = function () {
+            createBall(bigY3, num3, r3);
+        }
+        btnAllT.onclick = function () {
+            createBall(bigY1, numAll, r1);
+            createBall(bigY2, numAll, r2);
+            createBall(bigY3, numAll, r3);
+        }
+        btnAllC.onclick = function () {
+            var yanchi = (360 / (1000 / 16)) / numAll.value * 1000 / 2
+            createBall(bigY1, numAll, r1);
+            setTimeout(() => {
+                createBall(bigY2, numAll, r2);
+            }, yanchi);
+            setTimeout(() => {
+                createBall(bigY3, numAll, r3);
+            }, yanchi * 2);
+        }
+        // 检查是哪个球添加小球
+        function check(ele, bigY, r) {
+            if (bigY.id === "bigY1" || bigY.id === "bigY2" || bigY.id === "bigY3") {
+                moveY(ele, bigY, r, 1);
+            } else {
+                moveY(ele, bigY, r, 0);
+            }
+        }
+        // 创造小球
+        function createBall(bigY, num, r) {
+            var ballNum = num.value;
+            if (!isNaN(ballNum) && ballNum != 0) {
+                for (var i = 0; i < ballNum; i++) {
+                    var d = document.createElement("div");
+                    d.className = "smallY";
+                    d.style.background = "rgb(0,0,0)";
+                    // d.style.background = "url(./images/gy.png)";
+                    bigY.appendChild(d);
+                }
+                var arrSmall = bigY.children;
+                check(arrSmall, bigY, r);
+            } else {
+                num.value = "";
+                setTimeout(function () {
+                    num.focus();
+                })
+            }
+        }
+        // 移动方法
+        function moveY(ele, bigY, r, t) {
+            clearInterval(ele.timer);
+            for (var i = 0; i < ele.length; i++) {
+                ele[i].a = (360 / (ele.length - t)) * i + 1;
+            }
+            var deg=-90;
+            ele.timer = setInterval(function () {
+                for (var i = t; i < ele.length; i++) {
+                    // console.log(t)
+                    var pianyiX = pianyiY = 0;
+                    // 左
+                    ele[i].style.left = -25 + bigY.offsetLeft + pianyiX + r + Math.sin(Math.PI / 180 * ele[i].a) * r + "px";
+                    // 右
+                    ele[i].style.top = -25 + bigY.offsetTop + pianyiY + r - Math.sin(Math.PI / 180 * (90 - ele[i].a)) * r + "px";
+                    ele[i].a++;
+
+                    ele[i].style.transform="rotate("+deg+"deg)"
+                    deg++;
+                }
+            }, 16)
+        }
+        //长轴+sin(deg)*长轴
+    }
+</script>
+
+</html>

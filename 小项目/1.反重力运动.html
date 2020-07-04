@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+        }
+
+        #box {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background: url(./images/01\(1\).jpg) 100%;
+            position: absolute;
+            left: 50px;
+            top: 150px;
+        }
+
+        input {
+            width: 100px;
+            height: 50px;
+            font-size: 26px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="运动" id="btn">
+    <div id="box"></div>
+</body>
+<script src="./public(my).js"></script>
+<script>
+    var btn = $id("btn");
+    var box = $id("box");
+    var speedX = 5;
+    var speedY = -5;
+    btn.onclick = function () {
+        clearInterval(box.timer);
+        box.timer = setInterval(function () {
+            mov(speedX, speedY);
+            changeDir();
+        }, 16)
+    }
+    function mov() {
+        box.style.top = box.offsetTop + speedY + "px";
+        box.style.left = box.offsetLeft + speedX + "px";
+    }
+    function changeDir() {
+        if (box.offsetTop <= 0 || box.offsetTop >= document.body.clientHeight - box.offsetHeight) {
+            speedY = -speedY;
+        }
+        if (box.offsetLeft <= 0 || box.offsetLeft >= document.body.clientWidth - box.offsetWidth) {
+            speedX = -speedX;
+        }
+    }
+</script>
+
+</html>

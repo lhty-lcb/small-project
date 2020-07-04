@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="imgBox"></div>
+    <div id="game" class="game">
+        <div id="box">难度：<span id="level">1</span><br><em>（每获得100分可提升1难度）</em></div>
+        <div id="tip">按<span style="color: red;">Enter</span>可以开始/暂停/重新开始游戏</div>
+        <div id="warring">到了这里有惊喜→</div>
+        <div id="hrtg">
+            <video src="./video/hrtg.mp4" preload loop id="hrtgVideo"></video>
+            <div id="msg">黑人一笑，生死难料<br><span>（消回去就可以停掉这个bgm）</span></div>
+        </div>
+    </div>
+    <div id="next" class="next"></div>
+    <div class="info">
+        <div>已用时：<span id="time">0</span>秒</div>
+        <div>已得分：<span id="score">0</span>分</div>
+        <button id="startGame">开始游戏</button>
+        <div id="gameover"></div>
+        <audio src="./music/bgm.mp3" id="bgm" hidden loop preload></audio>
+        <audio src="./music/xuanzhuan.mp3" id="xz" hidden preload></audio>
+        <audio src="./music/luoxia.mp3" id="lx" hidden preload></audio>
+        <audio src="./music/fail.mp3" id="fail" hidden preload></audio>
+        <audio src="./music/clear.mp3" id="clear" hidden preload></audio>
+    </div>
+    <script src="./js/square.js"></script>
+    <script src="./js/squareFactory.js"></script>
+    <script src="./js/local.js"></script>
+    <script src="./js/remote.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
